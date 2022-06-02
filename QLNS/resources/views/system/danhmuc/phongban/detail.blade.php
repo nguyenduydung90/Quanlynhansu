@@ -165,12 +165,20 @@
                                                 @csrf
                                                 <input type="hidden" name="hoten" value="{{ $value->hoten }}">
                                                 <input type="hidden" name="gioitinh" value="{{ $value->gioitinh }}">
-                                                <input type="hidden" name="diachi" value="{{ $value->diachi }}">
+                                                <input type="hidden" name="quequan" value="{{ $value->quequan }}">
+                                                <input type="hidden" name="thuongtru" value="{{ $value->thuongtru }}">
                                                 <input type="hidden" name="ngaysinh" value="{{ $value->ngaysinh }}">
                                                 <input type="hidden" name="chucvu_id" value="{{ $value->chucvu_id }}">
                                                 <input type="hidden" name="phongban_id" value="{{ $phongban->id }}">
-                                                <input type="hidden" name="dienthoai" value="{{ $value->dienthoai }}">
+                                                <input type="hidden" name="sdt" value="{{ $value->sdt }}">
+                                                <input type="hidden" name="cccd" value="{{ $value->cccd }}">
                                                 <input type="hidden" name="email" value="{{ $value->email }}">
+                                                <input type="hidden" name="tdcm" value="{{ $value->tdcm }}">
+                                                <input type="hidden" name="truongdaotao" value="{{ $value->truongdaotao }}">
+                                                <input type="hidden" name="bangcap" value="{{ $value->bangcap }}">
+                                                <input type="hidden" name="namtotnghiep" value="{{ $value->namtotnghiep }}">
+                                                <input type="hidden" name="ngayvaoct" value="{{ $value->ngayvaoct }}">
+                                                <input type="hidden" name="theodoi" value="{{ $value->theodoi }}">
                                                 <input type="hidden" name="id_pb" value="dscb_pb">
                                                 <button type="submit" class="btn btn-info btn-xs mbs">
                                                     &nbsp; Chọn</button>

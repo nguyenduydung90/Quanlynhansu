@@ -514,6 +514,7 @@ class ComposerStaticInit60a3d176f8591f59ac9ba0a240d3f597
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Exceptions\\InvalidOrderException' => __DIR__ . '/../..' . '/app/Exceptions/InvalidOrderException.php',
         'App\\Http\\Controllers\\BangluongController' => __DIR__ . '/../..' . '/app/Http/Controllers/BangluongController.php',
         'App\\Http\\Controllers\\CanboController' => __DIR__ . '/../..' . '/app/Http/Controllers/CanboController.php',
         'App\\Http\\Controllers\\ChucvuController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChucvuController.php',
@@ -548,6 +549,7 @@ class ComposerStaticInit60a3d176f8591f59ac9ba0a240d3f597
         'App\\Models\\bangluong' => __DIR__ . '/../..' . '/app/Models/bangluong.php',
         'App\\Models\\bangluong_ct' => __DIR__ . '/../..' . '/app/Models/bangluong_ct.php',
         'App\\Models\\thongtinphanmem' => __DIR__ . '/../..' . '/app/Models/thongtinphanmem.php',
+        'App\\Policies\\BangluongPolicy' => __DIR__ . '/../..' . '/app/Policies/BangluongPolicy.php',
         'App\\Policies\\CanboPolicy' => __DIR__ . '/../..' . '/app/Policies/CanboPolicy.php',
         'App\\Policies\\ChucvuPolicy' => __DIR__ . '/../..' . '/app/Policies/ChucvuPolicy.php',
         'App\\Policies\\DmkhoiPbPolicy' => __DIR__ . '/../..' . '/app/Policies/DmkhoiPbPolicy.php',

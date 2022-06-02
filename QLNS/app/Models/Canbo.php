@@ -12,36 +12,23 @@ class Canbo extends Model
     protected $table='canbo';
     protected $fillable = [
         'hoten',
+        'ngaysinh',
          'gioitinh',
-         'diachi',
-         'anh',
+         'quequan',
+         'thuongtru',
+         'cccd',
          'chucvu_id',
          'phongban_id',
-         'dienthoai',
+         'sdt',
          'email',
-         'ngayvao',
-         'ngaysinh',
+         'ngayvaoct',
          'bangcap',
-         'sobhxh',
-         'sobhyt',
-         //thông tin lương cán bộ hiện tại
-         'luongthamnien',
-         'luongtrachnhiem',
-         'pccbptts', //phụ cấp cán bộ phụ trách tài sản
-         'lbcb',//lương bậc cán bộ
-         'lsp',
-         'congtacphi',
-         'pcat',
-         'pcxx',
-         'pcdt',
-         'ptbhxh',
-         'ptbhyt',
-         'ptbhtn',
-         'kpcd', //kinh phí công đoàn
-        //trừ vào lương
-        'tiencom',
-        'ngaynghi',
-        'tienphat'
+         'file_cccd',
+         'tdcm',
+         'truongdaotao',
+         'namtotnghiep',
+         'file_bc',
+         'theodoi'
     ];
 
     public function chucvu(){

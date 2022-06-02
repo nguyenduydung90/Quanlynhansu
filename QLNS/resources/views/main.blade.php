@@ -11,7 +11,7 @@
     <meta content="" name="HuongVu-LifeSoft" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
         type="text/css" />
     <link href="{{ url('assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"
         type="text/css" />
@@ -229,11 +229,10 @@
                             <span class="arrow "></span>
                         </a>
                         @can('list_canbo')
-                        <ul class="sub-menu">
+                        <ul class="sub-menu">                           
                             <li><a href="{{route('canbo.search')}}"><i class="fa fa-caret-right"></i>Tra cứu hồ sơ cán bộ</a></li>
-                        </ul>
-                        @endcan
-
+                        </ul> 
+                        @endcan                       
                     </li>
                     <li>
                         <a href="javascript:;">

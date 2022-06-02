@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Exceptions\\InvalidOrderException' => $baseDir . '/app/Exceptions/InvalidOrderException.php',
     'App\\Http\\Controllers\\BangluongController' => $baseDir . '/app/Http/Controllers/BangluongController.php',
     'App\\Http\\Controllers\\CanboController' => $baseDir . '/app/Http/Controllers/CanboController.php',
     'App\\Http\\Controllers\\ChucvuController' => $baseDir . '/app/Http/Controllers/ChucvuController.php',
@@ -42,6 +43,7 @@ return array(
     'App\\Models\\bangluong' => $baseDir . '/app/Models/bangluong.php',
     'App\\Models\\bangluong_ct' => $baseDir . '/app/Models/bangluong_ct.php',
     'App\\Models\\thongtinphanmem' => $baseDir . '/app/Models/thongtinphanmem.php',
+    'App\\Policies\\BangluongPolicy' => $baseDir . '/app/Policies/BangluongPolicy.php',
     'App\\Policies\\CanboPolicy' => $baseDir . '/app/Policies/CanboPolicy.php',
     'App\\Policies\\ChucvuPolicy' => $baseDir . '/app/Policies/ChucvuPolicy.php',
     'App\\Policies\\DmkhoiPbPolicy' => $baseDir . '/app/Policies/DmkhoiPbPolicy.php',

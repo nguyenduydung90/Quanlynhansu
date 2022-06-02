@@ -55,6 +55,7 @@ Route::prefix('danh_muc')->group(function(){
         Route::get('/delete/{id}',[CanboController::class,'destroy'])->name('canbo.delete')->middleware('can:delete_canbo');
         Route::get('/search',[CanboController::class,'search'])->name('canbo.search')->middleware('can:list_canbo');;
         Route::get('/result',[CanboController::class,'result'])->name('canbo.result');
+        Route::get('/chitiet',[CanboController::class,'show'])->name('canbo.chitiet');
     });
 });
 

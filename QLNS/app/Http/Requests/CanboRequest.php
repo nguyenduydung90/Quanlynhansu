@@ -26,12 +26,11 @@ class CanboRequest extends FormRequest
         return [
             'hoten'=>'required',
             'gioitinh'=>'required',
-            'dienthoai'=>'required',
+            'sdt'=>'required',
             'ngaysinh'=>'required',
-            'ngayvao'=>'required',
+            'ngayvaoct'=>'required',
             'chucvu_id'=>'required',
             'email'=>'required|email|unique:canbo',
-            'anh'=>'image',
             'name'=>'required|unique:users'
             
         ];
