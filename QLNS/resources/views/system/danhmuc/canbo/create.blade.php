@@ -247,7 +247,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label class="control-label">Tài khoản <span
+                                                            <label class="control-label">Tài khoản đăng nhập<span
                                                                     class="require">*</span>
                                                             </label>
                                                             <input type="text" name='name' class="form-control" id='name'

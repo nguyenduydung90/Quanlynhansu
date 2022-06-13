@@ -46,14 +46,19 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
+        $inputs=$request->permission_childrent;
+     
         $dataModulDad = [
             'tenquyen' => $request->tenquyen,
             'diengiai' => $request->diengiai,
             'parent' => 0,
             'key_code' => ''
         ];
-        //quản lý chi tiết các modul quyền(thêm, sửa, xóa)
+        //quản lý chi tiết các modul quyền(xem danh sách, thêm, sửa, xóa, tải)
         $permission_children=['list','edit','add','delete'];
+        foreach($inputs as $data){
+            array_push($permission_children,$data);
+        }
         if ($request->id == 0) {
             try {
                 DB::beginTransaction();
@@ -83,43 +88,45 @@ class PermissionController extends Controller
                     return $e->getmessage();
                 }
             };
-        } else {
-            $id = $request->id;
-            try {
-                DB::beginTransaction();
-                $dataParent = $this->permission->find($id);
-                $dataParent->update($dataModulDad);
-                foreach ($permission_children as $value) {
+        };
+        // } else {
+        //     $id = $request->id;
+        //     try {
+        //         DB::beginTransaction();
+        //         $dataParent = $this->permission->find($id);
+        //         $dataParent->update($dataModulDad);
+        //         foreach ($permission_children as $value) {
 
-                    $dataPermissionChildrent = [
-                        'parent' => $dataParent->id,
-                        'tenquyen' => $value,
-                        'diengiai' => $value,
-                        'key_code' => $value . '_' .chuanhoachuoi( $dataParent->tenquyen),
-                    ];
-                    $check = $dataParent->permissionChildrent->toArray();
-                    if (empty($check)) {
-                        $this->permission->create($dataPermissionChildrent);
-                    } else {
+        //             $dataPermissionChildrent = [
+        //                 'parent' => $dataParent->id,
+        //                 'tenquyen' => $value,
+        //                 'diengiai' => $value,
+        //                 'key_code' => $value . '_' .chuanhoachuoi( $dataParent->tenquyen),
+        //             ];
+        //             $check = $dataParent->permissionChildrent->toArray();
+        //             if (empty($check)) {
+        //                 $this->permission->create($dataPermissionChildrent);
+        //             } else {
 
-                        foreach ($dataParent->permissionChildrent as $item) {
+        //                 foreach ($dataParent->permissionChildrent as $item) {
 
-                            $datachildrent = $this->permission->find($item->id);
+        //                     $datachildrent = $this->permission->find($item->id);
+        //                     $role_id=$datachildrent->permissionChildrent->id;
+        //                     dd($role_id);
+        //                     if ($datachildrent != null) {
+        //                         $datachildrent->delete();
+        //                     }
+        //                 }
 
-                            if ($datachildrent != null) {
-                                $datachildrent->delete();
-                            }
-                        }
-
-                        $this->permission->create($dataPermissionChildrent);
-                    }
-                }
-                DB::commit();
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return $e->getmessage();
-            };
-        }
+        //                 $this->permission->create($dataPermissionChildrent);
+        //             }
+        //         }
+        //         DB::commit();
+        //     } catch (\Exception $e) {
+        //         DB::rollBack();
+        //         return $e->getmessage();
+        //     };
+        // }
 
         //Trả lại kết quả
         $result['message'] = 'Thao tác thành công.';
@@ -158,8 +165,48 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+
     {
-        //
+        $dataModulDad = [
+            'tenquyen' => $request->tenquyen,
+            'diengiai' => $request->diengiai,
+            'parent' => 0,
+            'key_code' => ''
+        ];
+        //quản lý chi tiết các modul quyền(xem danh sách, thêm, sửa, xóa, tải)
+        $permission_children=['list','edit','add','delete','download'];
+        try {
+            DB::beginTransaction();
+            $dataParent = $this->permission->find($id);
+            $dataParent->update($dataModulDad);
+            $dataParent=$this->permission->find($id);
+            foreach ($permission_children as $value) {
+                
+                $dataPermissionChildrent = [
+                    'parent' => $dataParent->id,
+                    'tenquyen' => $value,
+                    'diengiai' => $value,
+                    'key_code' => $value . '_' .chuanhoachuoi( $dataParent->tenquyen),
+                ];
+                $check = $dataParent->permissionChildrent->toArray();
+                if (empty($check)) {
+                    $this->permission->create($dataPermissionChildrent);
+                } else {
+                    foreach ($dataParent->permissionChildrent as $item) {
+                        if($dataPermissionChildrent['key_code']==$item->key_code){
+                            dd(1);
+                            $item->update($dataPermissionChildrent);
+                        }
+                    }
+
+                    // $this->permission->create($dataPermissionChildrent);
+                }
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $e->getmessage();
+        };
     }
 
     /**

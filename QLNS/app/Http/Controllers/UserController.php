@@ -27,9 +27,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $model=$this->user->where('name','!=','dev')->get();
+    {   if(auth()->user()->name == 'dev'){
+        $model=$this->user->all();
         $role=$this->role->all();
+    }else{
+        $model=$this->user->where('name','!=','dev')->get();
+        $role=$this->role->where('tenquyen','!=','dev')->get();
+    }
+        
+        
         return view('system.taikhoan.index')
                     ->with('model',$model)
                     ->with('role',$role)
@@ -201,31 +207,5 @@ class UserController extends Controller
         $taikhoan->update($data);
         return redirect()->back()->with('success',"Đổi mật khẩu thành công");;
     }
-
-    public function thongtinphanmem(){
-        $thongtinpm=thongtinphanmem::orderBy('id','desc')->first();
-        return view('thongtinphanmem.index')
-                ->with('thongtinpm',$thongtinpm)
-                ->with('pageTitle','Thông tin phần mềm');
-    }
-
-    public function ttpm_store(Request $request){
-        $inputs= $request->all();
-        $thongtinpm=thongtinphanmem::orderBy('id','desc')->first();
-        if ($request->file('hdsd')) {
-                $file = $request->file('hdsd');
-                $name = time() . $file->getClientOriginalName();
-                $file->move('uploads/document', $name);
-                $hdsd = 'uploads/document/' . $name;
-        }else{
-            $hdsd=$thongtinpm->hdsd;
-        }
-
-        $inputs['hdsd']=$hdsd;
-        thongtinphanmem::create($inputs);
-
-        return redirect()->route('thongtinphanmem');
-    }
-
     
 }

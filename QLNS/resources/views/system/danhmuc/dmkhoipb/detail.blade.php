@@ -45,12 +45,12 @@
                     </div>
                     <div class="actions">
                         @can('add_phongban')
-                        <button type="button" id="_btnaddPB" class="btn btn-success btn-xs" onclick="addPb({{$khoipb->id}})"><i
+                        <button type="button" id="_btnaddPB" class="btn btn-default btn-xs" onclick="addPb({{$khoipb->id}})"><i
                             class="fa fa-plus"></i>&nbsp;Thêm mới phòng ban</button>  
                         @endcan
 
                                 <div class="btn-back" style="margin-top:10px">
-                                    <a href="{{route('dmkhoipb.index')}}" class='btn btn-info btn-sm '><i
+                                    <a href="{{route('dmkhoipb.index')}}" class='btn btn-default btn-sm '><i
                                         class="fa fa-backward"></i> Quay lại</a>
                                 </div>
                     </div>
@@ -75,20 +75,20 @@
                                         <td>
                                             @can('list_phongban')
                                             <a type="button" href="{{route('phongban.detail',$value->id)}}"
-                                                class="btn btn-warning btn-xs mbs">
+                                                class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-tasks"></i>&nbsp; Chi tiết</a>  
                                             @endcan
 
                                             @can('edit_phongban')
                                             <button type="button" onclick="editPb(this, {{ $value->id }})"
-                                                class="btn btn-info btn-xs mbs">
+                                                class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button> 
                                             @endcan
 
                                             @can('delete_phongban')
                                             <button type="button"
                                             onclick="cfDel('/danh_muc/dm_khoi_pb/delete/{{ $value->id }}')"
-                                            class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm"
+                                            class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
                                             data-toggle="modal">
                                             <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>  
                                             @endcan

@@ -66,12 +66,13 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 2%">STT</th>
-                                <th class="text-center" style="width: 5%">Hình ảnh</th>
                                 <th class="text-center">Tên cán bộ</th>
                                 <th class="text-center">Ngày sinh</th>
-                                <th class="text-center">Giới tính</th>
+                                <th class="text-center" style="width:3%">Giới</br>tính</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Điện thoại</th>
+                                <th class="text-center" style="width: 25%">Địa chỉ hiện tại</th>
+                                <th class="text-center" style="width: 11%">Phân loại </br>theo dõi</th>
                                 {{-- <th class="text-center">Phòng ban</th> --}}
                                 {{-- <th class="text-center">Chức vụ</th> --}}
                                 <th class="text-center" style="width: 20%">Thao tác</th>
@@ -82,26 +83,17 @@
                                 @foreach ($model as $key => $value)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        <td class="text-center"><img src="{{ asset($value->anh) }}" alt=""
-                                                style="width: 96px; height: 96px"></td>
                                         <td name="tencb">
                                             <p class="info"><b style="color: #5b9bd1">{{ $value->hoten }}</b></p>
                                             <p class="info">Chức vụ: {{ $value->chucvu->tencv }}</p>
                                             <p class="info">Phòng: {{ $value->phongban->tenpb  }}</p>
                                         </td>
                                         <td name="ngaysinh">{{\Carbon\Carbon::parse($value->ngaysinh)->format('d/m/Y') }}</td>
-                                        <td name="gioitinh">{{ $value->gioitinh }}</td>
+                                        <td name="gioitinh">{{  $value->gioitinh == 1 ? 'Nam' : 'Nữ' }}</td>
                                         <td name="email">{{ $value->email }}</td>
-                                        <td name="dienthoai">{{ $value->dienthoai }}</td>
-                                        {{-- <td name="phongban_id">
-                                            @if ($value->phongban_id == null)
-                                                Chưa phân phòng ban
-                                            @else
-                                                {{ $value->phongban->tenpb }}
-                                            @endif
-
-                                        </td> --}}
-                                        {{-- <td name="phongban_id">{{ $value->chucvu->tencv }}</td> --}}
+                                        <td name="dienthoai">{{ $value->sdt }}</td>
+                                        <td name="diachi" class="diachi">{{ $value->thuongtru }}</td>
+                                        <td name="diachi" class="diachi">{{ $value->theodoi == 1 ? 'Đang công tác' : 'Ngừng theo dõi' }}</td>
                                         <td class="text-center">
                                             {{-- @can('list_canbo')
                                             <button type="button" data-toggle="modal"

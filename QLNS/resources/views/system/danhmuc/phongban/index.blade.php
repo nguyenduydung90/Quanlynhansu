@@ -32,7 +32,7 @@
                     </div>
                     <div class="actions">
                         @can('add_phongban')
-                        <button type="button" id="_btnaddPB" class="btn btn-success btn-xs" onclick="addPB()"><i
+                        <button type="button" id="_btnaddPB" class="btn btn-default btn-xs" onclick="addPB()"><i
                             class="fa fa-plus"></i>&nbsp;Thêm mới phòng ban</button>    
                         @endcan
 
@@ -72,20 +72,20 @@
                                         <td>
                                             @can('list_phongban')
                                             <a href="{{route('phongban.detail',$value->id)}}"
-                                                class="btn btn-warning btn-xs mbs">
+                                                class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-tasks"></i>&nbsp; Chi tiết</a>
                                             @endcan
 
                                             @can('edit_phongban')
                                             <button type="button" onclick="editPB(this, {{ $value->id }})"
-                                                class="btn btn-info btn-xs mbs">
+                                                class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button> 
                                             @endcan
 
                                             @can('delete_phongban')
                                             <button type="button"
                                             onclick="cfDel('/danh_muc/dm_phongban/delete/{{ $value->id }}')"
-                                            class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm"
+                                            class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
                                             data-toggle="modal">
                                             <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>   
                                             @endcan

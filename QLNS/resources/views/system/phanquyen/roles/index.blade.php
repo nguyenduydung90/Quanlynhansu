@@ -31,7 +31,7 @@
                         <b>DANH MỤC QUYỀN</b>
                     </div>
                     <div class="actions">
-                        <button  type="button" id="_btnaddPB" class="btn btn-success btn-xs" onclick="addkhoiPb()" ><i
+                        <button  type="button" id="_btnaddPB" class="btn btn-default btn-xs" onclick="addkhoiPb()" ><i
                                 class="fa fa-plus"></i>&nbsp;Thêm mới quyền</button>
                     </div>
                 </div>
@@ -54,11 +54,11 @@
                                         <td name="diengiai">{{ $value->diengiai }}</td>
                                         <td>
                                             <a type="button" href="{{route('roles.edit',$value->id)}}"
-                                                class="btn btn-info btn-xs mbs">
+                                                class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</a>
                                             <button type="button"
                                                 onclick="cfDel('/phanquyen/roles/delete/{{ $value->id }}')"
-                                                class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm"
+                                                class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
                                                 data-toggle="modal">
                                                 <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
                                         </td>

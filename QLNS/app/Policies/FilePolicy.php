@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\Files;
+use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class FilePolicy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAny(User $user)
+    {
+        //
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Files  $files
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function view(User $user)
+    {
+        return $user->checkPermissionAccess('list_file');
+    }
+
+    /**
+     * Determine whether the user can create models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function create(User $user)
+    {
+        return $user->checkPermissionAccess('add_file');
+        
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Files  $files
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function update(User $user)
+    {
+        return $user->checkPermissionAccess('edit_file');
+        
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Files  $files
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function delete(User $user)
+    {
+        return $user->checkPermissionAccess('delete_file');
+        
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Files  $files
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, Files $files)
+    {
+        //
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Files  $files
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function forceDelete(User $user, Files $files)
+    {
+        //
+    }
+}

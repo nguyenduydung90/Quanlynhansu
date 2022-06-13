@@ -51,6 +51,32 @@
             .form-control{
         border: 1px solid #87cefa !important;
     }
+    .btn-default {
+            color: #333 !important;
+            background-color: #fff !important;
+            border-color: #87cefa !important;
+        }
+
+    .table-bordered>tbody>tr>td,
+        .table-bordered>tbody>tr>th,
+        .table-bordered>tfoot>tr>td,
+        .table-bordered>tfoot>tr>th,
+        .table-bordered>thead>tr>td,
+        .table-bordered>thead>tr>th {
+            border: 1px solid #87cefa;
+        }
+
+        table.table-bordered thead th,
+        table.table-bordered thead td,
+        table.table-bordered tbody th,
+        table.table-bordered tbody td {
+            border-left-width: 0;
+            border-bottom-width: 0;
+        }
+
+        .table-bordered{
+            border: 1px solid #87cefa !important;
+        }
     /* .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td,
     .table-bordered>thead>tr>th {
     border: 1px solid #87cefa; */
@@ -202,7 +228,8 @@
                         </a>
                         <ul class="sub-menu">
                             @can('list_canbo')
-                            <li><a href="{{route('canbo.index')}}"><i class="fa fa-caret-right"></i>Hồ sơ cán bộ</a></li>
+                            <li><a href="{{route('canbo.index')}}"><i class="fa fa-caret-right"></i>Danh sách cán bộ đang công tác</a></li>
+                            <li><a href="{{route('canbo.dscbngungtheodoi')}}"><i class="fa fa-caret-right"></i>Danh sách cán bộ ngừng theo dõi</a></li>
                             @endcan
                             
                         </ul>
@@ -233,6 +260,21 @@
                             <li><a href="{{route('canbo.search')}}"><i class="fa fa-caret-right"></i>Tra cứu hồ sơ cán bộ</a></li>
                         </ul> 
                         @endcan                       
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="fa glyphicon glyphicon-list-alt"></i>
+                            <span class="title">Thư viện</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @can('list_ttpm')
+                            <li><a href="{{route('ttpm.index')}}"><i class="fa fa-caret-right"></i>Thông tin các phần mềm</a></li>  
+                            @endcan
+                            @can('list_file')
+                            <li><a href="{{route('file.index')}}"><i class="fa fa-caret-right"></i>File phần mềm</a></li>  
+                            @endcan
+                        </ul>
                     </li>
                     <li>
                         <a href="javascript:;">
@@ -301,19 +343,8 @@
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="{{route('thongtinphanmem')}}">
-                            <i class="fa fa-question-circle"></i>
-                            <span class="title">Thông tin phần mềm</span>
-                            {{-- <span class="arrow "></span> --}}
-                        </a>
-                        {{-- @can('list_canbo')
-                        <ul class="sub-menu">
-                            <li><a href="{{route('canbo.search')}}"><i class="fa fa-caret-right"></i>Tra cứu hồ sơ cán bộ</a></li>
-                        </ul>
-                        @endcan --}}
 
-                    </li>
+
                     
                 </ul>
 

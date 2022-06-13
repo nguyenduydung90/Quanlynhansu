@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CanboRequest;
 use App\Models\Canbo;
 use App\Models\Chucvu;
+use App\Models\DmkhoiPb;
 use App\Models\Phongban;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class CanboController extends Controller
@@ -36,8 +37,27 @@ class CanboController extends Controller
      */
     public function index()
     {
-        $model = $this->canbo->orderBy('hoten')->get();
-        return view('system.danhmuc.canbo.index')->with('model', $model)
+        $model = $this->canbo->orderBy('hoten')->where('canbo.theodoi',1)->get();
+        $khoipb=DmkhoiPb::all();
+        $phongban=Phongban::all();
+        return view('system.danhmuc.canbo.index')
+            ->with('model', $model)
+            ->with('khoipb', $khoipb)
+            ->with('phongban', $phongban)
+            ->with('type', 'theodoi')
+            ->with('pageTitle', 'Hồ sơ cán bộ');
+    }
+
+    public function dscbngungtheodoi()
+    {
+        $model = $this->canbo->orderBy('hoten')->where('canbo.theodoi',0)->get();
+        $khoipb=DmkhoiPb::all();
+        $phongban=Phongban::all();
+        return view('system.danhmuc.canbo.index')
+            ->with('model', $model)
+            ->with('khoipb', $khoipb)
+            ->with('phongban', $phongban)
+            ->with('type', 'ngungtheodoi')
             ->with('pageTitle', 'Hồ sơ cán bộ');
     }
 
@@ -102,7 +122,8 @@ class CanboController extends Controller
             'password'=>Hash::make($mkbandau)
         ];
        // tạo tài khoản đăng nhập
-        $this->user->create($data);
+        $taikhoan=$this->user->create($data);
+        $inputs['users_id']=$taikhoan->id;
         $this->canbo->create($inputs);
 
         return redirect()->route('canbo.index');
@@ -135,8 +156,8 @@ class CanboController extends Controller
     public function edit($id)
     {
         $model = Canbo::findOrFail($id);
-        $user=User::where('name',$model->hoten)->get();
-        $taikhoan=$user[0]->name;
+        $user=User::findOrFail($model->users_id);
+        $taikhoan=$user->name;
         $phongban = Phongban::all();
         $chucvu = Chucvu::all();
 
@@ -159,8 +180,8 @@ class CanboController extends Controller
 
         $inputs = $request->all();
         $canbo = $this->canbo->findOrFail($id);
-        $taikhoan=User::where('name',$canbo->hoten)->get();
-        $user_id=$taikhoan[0]->id;
+        $taikhoan=User::findOrFail($canbo->users_id);
+        $user_id=$taikhoan->id;
         Validator::make($request->all(), [
             'email' => 'email|unique:canbo,email,'.$id,
             'name'=>'unique:users,name,'.$user_id,
@@ -224,16 +245,22 @@ class CanboController extends Controller
 
 
         //update tài khoản
-        if($inputs['name']!= $taikhoan[0]->name){
+        if($inputs['name']!= $taikhoan->name){
            
             $data=[
                 'name'=> $inputs['name'],
-                'password'=>$taikhoan[0]->password,
+                'password'=>$taikhoan->password,
                 'email'=>$inputs['email']
             ];
-            $taikhoan[0]->update($data);
+           
+        }else{
+            $data=[
+                'name'=> $taikhoan->name,
+                'password'=>$taikhoan->password,
+                'email'=>$inputs['email']
+            ]; 
         }
-
+        $taikhoan->update($data);
         $canbo->update($inputs);
 
         $id_pb = $request->phongban_id;
@@ -258,7 +285,7 @@ class CanboController extends Controller
         $bangcap=explode(',',$canbo->file_bc);
         foreach($cccd as $item){
             if($item !=$defaulImg){
-                if(File::exists(',',$item)){
+                if(File::exists($item)){
                     File::Delete($item);
                 }
             }
@@ -266,7 +293,7 @@ class CanboController extends Controller
 
         foreach($bangcap as $value){
             if($value !=$defaulImg){
-                if(File::exists(',',$value)){
+                if(File::exists($value)){
                     File::Delete($value);
                 }
             }
@@ -321,5 +348,71 @@ class CanboController extends Controller
         return view('system.search.canbo.result')
             ->with('model', $model)
             ->with('pageTitle', 'Tra cứu hồ sơ cán bộ');
+    }
+
+    public function inthongtincanbo($id){
+        $model=Canbo::join('phongban','phongban.id','=','canbo.phongban_id')
+                        ->join('dmkhoipb','dmkhoipb.id','=','phongban.dmkhoi_id')
+                        ->where('canbo.id',$id)
+                        ->get();
+        return view('reports.canbo.danhsach')
+                    ->with('model',$model)
+                    ->with('name_title','THÔNG TIN HỒ SƠ CÁN BỘ');
+
+    }
+
+    public function indanhsach(Request $request){
+        $model=Canbo::join('phongban','phongban.id','=','canbo.phongban_id')
+                        ->join('dmkhoipb','dmkhoipb.id','=','phongban.dmkhoi_id');
+        $name_title='DANH SÁCH CÁN BỘ CÔNG TY';
+    $inputs=$request->all();
+        if($inputs['dmkhoi_id'] != ''){
+            $model=$model->where('dmkhoipb.id',$inputs['dmkhoi_id']);
+            $khoipb=DmkhoiPb::findOrFail($inputs['dmkhoi_id']);
+            $tenkhoi=Str::upper($khoipb->tenkhoi);
+            $name_title='DANH SÁCH CÁN BỘ KHỐI '.$tenkhoi;
+        };
+        if($inputs['phongban_id'] != ''){
+            $model=$model->where('phongban.id',$inputs['phongban_id']);
+            $phongban=Phongban::findOrFail($inputs['phongban_id']);
+            $tenpb=Str::upper($phongban->tenpb);
+            $name_title='DANH SÁCH CÁN BỘ PHÒNG '.$tenpb;
+        };
+
+        $model=$model->where('canbo.theodoi',1)->orderBy('phongban.id','asc')->get();
+        
+        return view('reports.canbo.danhsach')
+                ->with('model',$model)
+                ->with('name_title',$name_title);
+
+    }
+
+    public function updatetrangthai(Request $request){
+                $id=$request->id;
+                $canbo=$this->canbo->findOrFail($id);
+                $data=[
+                    'hoten'=>$canbo->hoten,
+                    'ngaysinh'=>$canbo->ngaysinh,
+                    'gioitinh'=>$canbo->gioitinh,
+                    'quequan'=>$canbo->quequan,
+                    'cccd'=>$canbo->cccd,
+                    'file_cccd'=>$canbo->file_cccd,
+                    'file_bc'=>$canbo->file_bc,
+                    'thuongtru'=>$canbo->thuongtru,
+                    'sdt'=>$canbo->sdt,
+                    'email'=>$canbo->email,
+                    'tdcm'=>$canbo->tdcm,
+                    'truongdaotao'=>$canbo->truongdaotao,
+                    'namtotnghiep'=>$canbo->namtotnghiep,
+                    'bangcap'=>$canbo->bangcap,
+                    'ngayvaoct'=>$canbo->ngayvaoct,
+                    'phongban_id'=>$canbo->phongban_id,
+                    'chucvu_id'=>$canbo->chucvu_id,
+                    'theodoi'=>$request->theodoi,
+                ];
+                $canbo->update($data);
+
+                $result['status'] = 'success';
+                die(json_encode($result));         
     }
 }

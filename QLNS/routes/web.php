@@ -4,9 +4,11 @@ use App\Http\Controllers\BangluongController;
 use App\Http\Controllers\CanboController;
 use App\Http\Controllers\ChucvuController;
 use App\Http\Controllers\DmkhoiPbController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\Phanquyen\PermissionController;
 use App\Http\Controllers\Phanquyen\RolesController;
 use App\Http\Controllers\PhongbanController;
+use App\Http\Controllers\ThongtinphanmemController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +50,7 @@ Route::prefix('danh_muc')->group(function(){
 
     Route::prefix('canbo')->group(function(){
         Route::get('/',[CanboController::class,'index'])->name('canbo.index')->middleware('can:list_canbo');
+        Route::get('/dscbngungtheodoi',[CanboController::class,'dscbngungtheodoi'])->name('canbo.dscbngungtheodoi')->middleware('can:list_canbo');
         Route::get('/create',[CanboController::class,'create'])->name('canbo.create')->middleware('can:add_canbo');
         Route::post('/store',[CanboController::class,'store'])->name('canbo.store')->middleware('can:add_canbo');
         Route::get('/edit/{id}',[CanboController::class,'edit'])->name('canbo.edit')->middleware('can:edit_canbo');
@@ -56,6 +59,9 @@ Route::prefix('danh_muc')->group(function(){
         Route::get('/search',[CanboController::class,'search'])->name('canbo.search')->middleware('can:list_canbo');;
         Route::get('/result',[CanboController::class,'result'])->name('canbo.result');
         Route::get('/chitiet',[CanboController::class,'show'])->name('canbo.chitiet');
+        Route::get('/inchitiet/{id}',[CanboController::class,'inthongtincanbo'])->name('canbo.inchitiet');
+        Route::post('/indanhsach',[CanboController::class,'indanhsach'])->name('canbo.indanhsach');
+        Route::get('/theodoi',[CanboController::class,'updatetrangthai'])->name('canbo.theodoi');
     });
 });
 
@@ -71,6 +77,7 @@ Route::prefix('phanquyen')->group(function(){
     Route::prefix('permissions')->group(function(){
         Route::get('/',[PermissionController::class,'index'])->name('permission.index')->middleware('can:list_permission');
         Route::post('/store',[PermissionController::class,'store'])->name('permission.store')->middleware('can:add_permission');
+        // Route::post('/update/{id}',[PermissionController::class,'update'])->name('permission.update');
         Route::get('/delete/{id}',[PermissionController::class,'destroy'])->name('permission.delete')->middleware('can:delete_permission');
     });
     Route::prefix('taikhoan')->group(function(){
@@ -80,6 +87,24 @@ Route::prefix('phanquyen')->group(function(){
         Route::get('/delete/{id}',[UserController::class,'destroy'])->name('user.delete')->middleware('can:delete_taikhoan');
         Route::get('/doimatkhau',[UserController::class,'viewchangePassword'])->name('viewchangPassword')->middleware('can:edit_taikhoan');
         Route::post('/doimatkhau',[UserController::class,'changePassword'])->name('doimatkhau')->middleware('can:edit_taikhoan');
+    });
+});
+
+Route::prefix('thuvien')->group(function(){
+    Route::prefix('ttpm')->group(function(){
+        Route::get('/',[ThongtinphanmemController::class,'index'])->name('ttpm.index')->middleware('can:list_ttpm');
+        Route::post('/store',[ThongtinphanmemController::class,'store'])->name('ttpm.store')->middleware('can:add_ttpm');
+        Route::get('/delete/{id}',[ThongtinphanmemController::class,'destroy'])->name('ttpm.delete')->middleware('can:delete_ttpm');
+        Route::get('/lichsu/{id}',[ThongtinphanmemController::class,'show'])->name('ttpm.lichsu')->middleware('can:lichsu_ttpm');
+        Route::post('/update/{id}',[ThongtinphanmemController::class,'update'])->name('ttpm.update')->middleware('can:edit_ttpm');
+    });
+
+    Route::prefix('file')->group(function(){
+        Route::get('/',[FileController::class,'index'])->name('file.index')->middleware('can:list_file');
+        Route::post('/store',[FileController::class,'store'])->name('file.store')->middleware('can:add_file');
+        Route::post('/update/{id}',[FileController::class,'update'])->name('file.update')->middleware('can:edit_file');
+        Route::get('/delete/{id}',[FileController::class,'destroy'])->name('file.delete')->middleware('can:delete_file');
+        Route::get('/lichsu/{id}',[FileController::class,'show'])->name('file.lichsu')->middleware('can:lichsu_file');
     });
 });
 
@@ -98,7 +123,5 @@ Route::prefix('phanquyen')->group(function(){
 //     });
 // });
 
-Route::get('/thongtinphanmem',[UserController::class,'thongtinphanmem'])->name('thongtinphanmem');
-Route::post('/thongtinphanmem',[UserController::class,'ttpm_store'])->name('ttpm_store');
 Route::get('/logout',[UserController::class,'logout'])->name('logout');
 });

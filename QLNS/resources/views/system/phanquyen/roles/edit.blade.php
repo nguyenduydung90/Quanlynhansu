@@ -63,8 +63,10 @@
                                 <tr>
                                     <th>Xem danh sách</th>
                                     <th>Sửa</th>
-                                    <th>Thêm<main></main></th>
+                                    <th>Thêm</th>
                                     <th>Xóa</th>
+                                    <th>Download</th>
+                                    <th>Xem lịch sử</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,14 +78,17 @@
                                             <td name="diengiai">{{ $permissionParent->diengiai }}</td>
                                             @foreach ($permissionParent->permissionChildrent as $permissionParentItem)
                                                 <td>
-                                                    <input type="checkbox" name="permission_id[]" value="{{ $permissionParentItem->id }}"
-                                                        class="permission_id"
+                                                    <input type="checkbox" name="permission_id[]"
+                                                        value="{{ $permissionParentItem->id }}" class="permission_id"
                                                         @foreach ($role->permissions as $value) {{ $value->id == $permissionParentItem->id ? 'checked' : '' }} @endforeach>
                                                     {{-- {{ $permissionParentItem->tenquyen }} --}}
                                                 </td>
                                             @endforeach
-
-
+                                            @if (count($permissionParent->permissionChildrent) < 6)
+                                                @for ($i = 0; $i < 6 - count($permissionParent->permissionChildrent); $i++)
+                                                    <td></td>
+                                                @endfor
+                                            @endif
                                         </tr>
                                     @endforeach
                                 @endif
@@ -92,14 +97,12 @@
                     </div>
 
                     <div class="modal-footer">
-                        <a href="{{route('roles.index')}}" type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</a>
+                        <a href="{{ route('roles.index') }}" type="button" data-dismiss="modal" class="btn btn-default">Hủy
+                            thao tác</a>
                         <button type="submit" id="submit" name="submit" value="submit" class="btn btn-primary">Đồng
                             ý</button>
                     </div>
                 </form>
-
-
-
             </div>
         </div>
     </div>

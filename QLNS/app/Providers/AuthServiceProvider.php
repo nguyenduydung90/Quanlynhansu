@@ -23,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         $this->registerPolicies();
 
         //phan quyen user
@@ -66,12 +67,36 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('add_canbo', 'App\Policies\CanboPolicy@create');
         Gate::define('edit_canbo', 'App\Policies\CanboPolicy@update');
         Gate::define('delete_canbo', 'App\Policies\CanboPolicy@delete');
+        Gate::define('download_canbo',function($user){
+            return $user->checkPermissionAccess('download_canbo');
+        });
 
         //phân quyền chức năng bảng lương
         Gate::define('list_bangluong', 'App\Policies\BangluongPolicy@view');
         Gate::define('add_bangluong', 'App\Policies\BangluongPolicy@create');
         Gate::define('edit_bangluong', 'App\Policies\BangluongPolicy@update');
         Gate::define('delete_bangluong', 'App\Policies\BangluongPolicy@delete');
+
+        //phân quyền thông tin phần mềm
+        Gate::define('list_ttpm', 'App\Policies\ThongtinphanmemPolicy@view');
+        Gate::define('add_ttpm', 'App\Policies\ThongtinphanmemPolicy@create');
+        Gate::define('edit_ttpm', 'App\Policies\ThongtinphanmemPolicy@update');
+        Gate::define('delete_ttpm', 'App\Policies\ThongtinphanmemPolicy@delete');
+        Gate::define('lichsu_ttpm',function($user){
+            return $user->checkPermissionAccess('lichsu_ttpm');
+        });
+
+        //phân quyền file phần mềm
+        Gate::define('list_file', 'App\Policies\FilePolicy@view');
+        Gate::define('add_file', 'App\Policies\FilePolicy@create');
+        Gate::define('edit_file', 'App\Policies\FilePolicy@update');
+        Gate::define('delete_file', 'App\Policies\FilePolicy@delete');
+        Gate::define('download_file',function($user){
+            return $user->checkPermissionAccess('download_file');
+        });
+        Gate::define('lichsu_file',function($user){
+            return $user->checkPermissionAccess('lichsu_file');
+        });
 
 
 

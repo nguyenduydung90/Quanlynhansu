@@ -31,8 +31,8 @@
                     </div>
                     <div class="actions">
                         @can('add_taikhoan')
-                        <button type="button" id="_btnaddPB" class="btn btn-success btn-xs" onclick="addTK()"><i
-                                class="fa fa-plus"></i>&nbsp;Thêm mới tài khoản</button>
+                            <button type="button" id="_btnaddPB" class="btn btn-default btn-xs" onclick="addTK()"><i
+                                    class="fa fa-plus"></i>&nbsp;Thêm mới tài khoản</button>
                         @endcan
                     </div>
                 </div>
@@ -55,30 +55,36 @@
                                         <td name="name">{{ $value->name }}</td>
                                         <td name="email">{{ $value->email }}</td>
                                         <td name="tenquyen">
-                                            <select name="role_id" id="role_id_cf{{ $value->id }}"
-                                                onchange="cfQuyen({{ $value->id }})" class="form-control role_id">
-                                                <option value="">-- Chọn quyền ---</option>
+                                            @can('edit_roles')
+                                                <select name="role_id" id="role_id_cf{{ $value->id }}"
+                                                    onchange="cfQuyen({{ $value->id }})" class="form-control role_id">
+                                                    <option value="">-- Chọn quyền ---</option>
+                                                    @foreach ($role as $item)
+                                                        <option value="{{ $item->id }}"
+                                                            {{ $value->roles->contains('id', $item->id) ? 'selected' : '' }}>
+                                                            {{ $item->tenquyen }}</option>
+                                                    @endforeach
+                                                </select>
+                                            @else
                                                 @foreach ($role as $item)
-                                                    <option value="{{ $item->id }}"
-                                                        {{ $value->roles->contains('id', $item->id) ? 'selected' : '' }}>
-                                                        {{ $item->tenquyen }}</option>
+                                                {{ $value->roles->contains('id', $item->id) ? $item->tenquyen : '' }}
                                                 @endforeach
-                                            </select>
+                                            @endcan
                                         </td>
                                         <td class="text-center">
                                             @can('edit_taikhoan')
-                                            <button type="button" data-toggle="modal"
-                                                data-target="#taikhoan-modal{{ $value->id }}"
-                                                class="btn btn-info btn-xs mbs">
-                                                <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button>
-                                                @endcan
-                                                @can('delete_taikhoan')
-                                            <button type="button"
-                                                onclick="cfDel('/phanquyen/taikhoan/delete/{{ $value->id }}')"
-                                                class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm"
-                                                data-toggle="modal">
-                                                <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
-                                                @endcan
+                                                <button type="button" data-toggle="modal"
+                                                    data-target="#taikhoan-modal{{ $value->id }}"
+                                                    class="btn btn-default btn-xs mbs">
+                                                    <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button>
+                                            @endcan
+                                            @can('delete_taikhoan')
+                                                <button type="button"
+                                                    onclick="cfDel('/phanquyen/taikhoan/delete/{{ $value->id }}')"
+                                                    class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
+                                                    data-toggle="modal">
+                                                    <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
+                                            @endcan
                                         </td>
                                     </tr>
                                     <div id="taikhoan-modal{{ $value->id }}" tabindex="-1" role="dialog"
@@ -137,7 +143,7 @@
 
     <!--Modal thông tin chức vụ -->
     <div id="taikhoan-modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        <div class="modal-dialog" >
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
@@ -189,7 +195,7 @@
 
         function cfTK() {
             var valid = true;
-            var message =[];
+            var message = [];
 
             var name = $('#name_add').val();
             var email = $('#email_add').val();
@@ -199,12 +205,12 @@
 
             if (name == '') {
                 valid = false;
-                message.push('Tên tài khoản không được bỏ trống \n') ;
+                message.push('Tên tài khoản không được bỏ trống \n');
             };
-            
-            if(email == '') {
+
+            if (email == '') {
                 valid = false;
-                message.push('Email không được bỏ trống \n') ;
+                message.push('Email không được bỏ trống \n');
                 // message['email'] = 'Email không được bỏ trống \n';
             }
 
@@ -239,7 +245,7 @@
                             setTimeout(() => {
                                 $('.alert-danger').hide();
                             }, 3000);
-                            
+
                         } else {
                             location.reload();
                             $('#taikhoan-modal').modal('hide');
@@ -249,15 +255,15 @@
                         alert(message);
                     }
                 });
-                
+
             } else {
                 $.each(message, function(key, value) {
-                                $('.alert-danger').show();
-                                $('.alert-danger').append('<li>' + value + '</li>');
-                            });
-                            setTimeout(() => {
-                                $('.alert-danger').hide();
-                            }, 3000);
+                    $('.alert-danger').show();
+                    $('.alert-danger').append('<li>' + value + '</li>');
+                });
+                setTimeout(() => {
+                    $('.alert-danger').hide();
+                }, 3000);
             }
             return valid;
         }
@@ -265,7 +271,7 @@
         function updateTK(id) {
             var valid = true;
             var message = [];
-            var url="{{ route('user.update') }}";
+            var url = "{{ route('user.update') }}";
 
             var name = $('#name' + id).val();
             var email = $('#email' + id).val();
@@ -276,12 +282,12 @@
 
             if (name == '') {
                 valid = false;
-                message.push('Tên tài khoản không được bỏ trống \n') ;
+                message.push('Tên tài khoản không được bỏ trống \n');
             };
-            
-            if(email == '') {
+
+            if (email == '') {
                 valid = false;
-                message.push('Email không được bỏ trống \n') ;
+                message.push('Email không được bỏ trống \n');
                 // message['email'] = 'Email không được bỏ trống \n';
             }
 
@@ -318,7 +324,7 @@
                             setTimeout(() => {
                                 $('.edit').hide();
                             }, 3000);
-                            
+
                         } else {
                             location.reload();
                             $('#taikhoan-modal').modal('hide');
@@ -331,12 +337,12 @@
                 $('#taikhoan-modal').modal('hide');
             } else {
                 $.each(message, function(key, value) {
-                                $('.alert-danger').show();
-                                $('.alert-danger').append('<li>' + value + '</li>');
-                            });
-                            setTimeout(() => {
-                                $('.alert-danger').hide();
-                            }, 3000);
+                    $('.alert-danger').show();
+                    $('.alert-danger').append('<li>' + value + '</li>');
+                });
+                setTimeout(() => {
+                    $('.alert-danger').hide();
+                }, 3000);
             }
             return valid;
         }

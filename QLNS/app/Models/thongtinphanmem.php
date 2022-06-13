@@ -11,7 +11,11 @@ class thongtinphanmem extends Model
 
     protected $table='thongtinphanmems';
     protected $fillable = [
-        'tenpm','hdsd','congnghe','linkdm','cbphutrach','thoigianphattrien'
+        'tenpm','hdsd','congnghe','linkdm','canbo_id','thoigianphattrien'
     ];
+
+    public function canbo(){
+        return $this->hasOne(Canbo::class,'id','canbo_id');
+    }
 
 }

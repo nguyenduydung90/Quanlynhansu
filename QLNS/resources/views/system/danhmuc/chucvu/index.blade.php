@@ -39,7 +39,7 @@
                     </div>
                     <div class="actions">
                         @can('add_chucvu')
-                        <button type="button" id="_btnaddPB" class="btn btn-success btn-xs" onclick="addCV()"><i
+                        <button type="button" id="_btnaddPB" class="btn btn-default btn-xs" onclick="addCV()"><i
                             class="fa fa-plus"></i>&nbsp;Thêm mới chức vụ</button>  
                         @endcan
 
@@ -65,14 +65,14 @@
                                         <td class="text-center">
                                             @can('edit_chucvu')
                                             <button type="button" onclick="editCV(this, {{ $value->id }})"
-                                                class="btn btn-info btn-xs mbs">
+                                                class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</button>    
                                             @endcan
                                         
                                             @can('delete_chucvu')
                                             <button type="button"
                                             onclick="cfDel('/danh_muc/chuc_vu_cb/delete/{{ $value->id }}')"
-                                            class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm"
+                                            class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
                                             data-toggle="modal">
                                             <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
                                             @endcan

@@ -28,7 +28,8 @@ class Canbo extends Model
          'truongdaotao',
          'namtotnghiep',
          'file_bc',
-         'theodoi'
+         'theodoi',
+         'users_id'
     ];
 
     public function chucvu(){

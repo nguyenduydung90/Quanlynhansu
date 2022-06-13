@@ -46,7 +46,7 @@
 
                     <div class="actions">
                         @can('add_canbo')
-                        <button type="button" id="_btnaddCB" class="btn btn-success btn-xs"><i
+                        <button type="button" id="_btnaddCB" class="btn btn-default btn-xs"><i
                             class="fa fa-plus"></i>&nbsp;Thêm mới cán bộ</button>
                         @endcan
 
@@ -62,7 +62,6 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 2%">STT</th>
-                                <th class="text-center" style="width: 5%">Hình ảnh</th>
                                 <th class="text-center">Tên cán bộ</th>
                                 <th class="text-center">Ngày sinh</th>
                                 <th class="text-center">Giới tính</th>
@@ -78,8 +77,6 @@
                                 @foreach ($model as $key => $value)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        <td class="text-center"><img src="{{ asset($value->anh) }}" alt=""
-                                                style="width: 96px; height: 96px"></td>
                                         <td name="tencv">
                                             <p class="info"><b style="color: #5b9bd1">{{ $value->hoten }}</b></p>
                                             <p class="info">Chức vụ: {{ $value->tencv }}</p>
@@ -88,22 +85,22 @@
                                         <td name="ngaysinh">
                                             {{ \Carbon\Carbon::parse($value->ngaysinh)->format('d/m/Y') }}
                                         </td>
-                                        <td name="gioitinh">{{ $value->gioitinh }}</td>
+                                        <td name="gioitinh">{{ $value->gioitinh == 1 ? 'Nam' : 'Nữ' }}</td>
                                         <td name="email">{{ $value->email }}</td>
-                                        <td name="dienthoai">{{ $value->dienthoai }}</td>
+                                        <td name="dienthoai">{{ $value->sdt }}</td>
                                         {{-- <td name="phongban_id">{{ $value->tenpb }}</td> --}}
-                                        <td name="phongban_id">{{ $value->diachi }}</td>
+                                        <td name="phongban_id">{{ $value->thuongtru }}</td>
                                         <td>
                                             @can('edit_canbo')
                                             <a type="button" href="{{ route('canbo.edit', $value->id) }}"
-                                                class="btn btn-info btn-xs mbs">
+                                                class="btn btn-default btn-xs mbs">
                                                 <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</a>
                                             @endcan
 
                                             @can('delete_canbo')
                                             <button type="button"
                                             onclick="cfDel('/danh_muc/canbo/delete/{{ $value->id }}')"
-                                            class="btn btn-danger btn-xs mbs" data-target="#delete-modal-confirm"
+                                            class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
                                             data-toggle="modal">
                                             <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
                                             @endcan
@@ -132,7 +129,6 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width: 10%">STT</th>
-                                <th class="text-center">Hình ảnh</th>
                                 <th class="text-center">Tên cán bộ</th>
                                 <th class="text-center">Ngày sinh</th>
                                 <th class="text-center">Giới tính</th>
@@ -148,15 +144,13 @@
                                 @foreach ($canbo as $key => $value)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        <td class="text-center"><img src="{{ asset($value->anh) }}" alt=""
-                                                style="width: 70px; height: 80px"></td>
                                         <td name="tencv">{{ $value->hoten }}</td>
                                         <td name="ngaysinh">
                                             {{ \Carbon\Carbon::parse($value->ngaysinh)->format('d/m/Y') }}
                                         </td>
-                                        <td name="gioitinh">{{ $value->gioitinh }}</td>
+                                        <td name="gioitinh">{{  $value->gioitinh == 1 ? 'Nam' : 'Nữ' }}</td>
                                         <td name="email">{{ $value->email }}</td>
-                                        <td name="dienthoai">{{ $value->dienthoai }}</td>
+                                        <td name="dienthoai">{{ $value->sdt }}</td>
                                         {{-- <td name="phongban_id">{{ $value->tenpb }}</td> --}}
                                         <td name="phongban_id">{{ $value->chucvu->tencv }}</td>
                                         <td>
@@ -179,6 +173,7 @@
                                                 <input type="hidden" name="namtotnghiep" value="{{ $value->namtotnghiep }}">
                                                 <input type="hidden" name="ngayvaoct" value="{{ $value->ngayvaoct }}">
                                                 <input type="hidden" name="theodoi" value="{{ $value->theodoi }}">
+                                                <input type="hidden" name="theodoi" value="{{ $value->users_id }}">
                                                 <input type="hidden" name="id_pb" value="dscb_pb">
                                                 <button type="submit" class="btn btn-info btn-xs mbs">
                                                     &nbsp; Chọn</button>

@@ -24,7 +24,12 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $model = $this->roles->all();
+        if(auth()->user()->name=='dev'){
+            $model = $this->roles->all();
+        }else{
+            $model = $this->roles->where('tenquyen','!=','dev')->get();
+        }
+
         $permissionParents = $this->permissions->where('parent', 0)->get();
         return view('system.phanquyen.roles.index')
             ->with('model', $model)
@@ -89,7 +94,13 @@ class RolesController extends Controller
     {
         $role=$this->roles->find($id);
         
-        $permissionParents=$this->permissions->where('parent',0)->get();
+        $permissionParents=$this->permissions->where('parent',0);
+        if(auth()->user()->name=='dev'){
+            $permissionParents=$permissionParents->get();
+        }else{
+            $permissionParents=$permissionParents->where('tenquyen','!=','Permission')->get();
+        };
+
         return view('system.phanquyen.roles.edit')
                                                 ->with('role',$role)
                                                 ->with('permissionParents',$permissionParents)
