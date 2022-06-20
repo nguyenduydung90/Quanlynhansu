@@ -122,6 +122,6 @@ Route::prefix('thuvien')->group(function(){
 //         Route::get('/inbangluong/mabl={mabl}',[BangluongController::class,'inbangluong'])->name('bangluong.inbangluong')->middleware('can:list_bangluong');
 //     });
 // });
-
+Route::get('/tongquan',[UserController::class,'tongquan'])->name('tongquan');
 Route::get('/logout',[UserController::class,'logout'])->name('logout');
 });

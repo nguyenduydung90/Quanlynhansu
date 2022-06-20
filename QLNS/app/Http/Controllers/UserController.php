@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Canbo;
 use App\Models\Roles;
 use App\Models\thongtinphanmem;
 use App\Models\User;
@@ -174,7 +175,7 @@ class UserController extends Controller
         $credentials = $request->only('name', 'password');
         $message = '';
         if (Auth::attempt($credentials)) {    
-            return redirect(route('canbo.index'))->with('success','Đăng nhập thành công');
+            return redirect()->route('tongquan')->with('success','Đăng nhập thành công');
         }else{
             
             $message='Thông tin tài khoản hoặc mật khẩu không đúng';
@@ -206,6 +207,20 @@ class UserController extends Controller
         ];
         $taikhoan->update($data);
         return redirect()->back()->with('success',"Đổi mật khẩu thành công");;
+    }
+
+    public function tongquan(){
+        $tong=Canbo::selectRaw('COUNT(id) AS soluong')->first();
+        $cb_gioitinh=Canbo::selectRaw('COUNT(id) AS soluong, gioitinh')->groupBy('gioitinh')->get();
+        $cb_chucvu=Canbo::selectRaw('COUNT(id) AS soluong, chucvu_id')->groupBy('chucvu_id')->get();
+        $cb_pb=Canbo::selectRaw('COUNT(id) AS soluong, phongban_id')->groupBy('phongban_id')->get();
+        
+        return view('system.tongquan.tongquan')
+                    ->with('cb_gioitinh',$cb_gioitinh)
+                    ->with('cb_chucvu',$cb_chucvu)
+                    ->with('cb_pb',$cb_pb)
+                    ->with('tong',$tong)
+                    ->with('pageTitle','Tổng quan');
     }
     
 }

@@ -365,14 +365,14 @@ class CanboController extends Controller
         $model=Canbo::join('phongban','phongban.id','=','canbo.phongban_id')
                         ->join('dmkhoipb','dmkhoipb.id','=','phongban.dmkhoi_id');
         $name_title='DANH SÁCH CÁN BỘ CÔNG TY';
-    $inputs=$request->all();
-        if($inputs['dmkhoi_id'] != ''){
+        $inputs=$request->all();
+        if(isset($inputs['dmkhoi_id'])){
             $model=$model->where('dmkhoipb.id',$inputs['dmkhoi_id']);
             $khoipb=DmkhoiPb::findOrFail($inputs['dmkhoi_id']);
             $tenkhoi=Str::upper($khoipb->tenkhoi);
             $name_title='DANH SÁCH CÁN BỘ KHỐI '.$tenkhoi;
         };
-        if($inputs['phongban_id'] != ''){
+        if(isset($inputs['phongban_id'])){
             $model=$model->where('phongban.id',$inputs['phongban_id']);
             $phongban=Phongban::findOrFail($inputs['phongban_id']);
             $tenpb=Str::upper($phongban->tenpb);

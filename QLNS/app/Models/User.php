@@ -46,6 +46,14 @@ class User extends Authenticatable
         return $this->belongsToMany(Roles::class);
     }
 
+    public function chucvu(){
+        return $this->hasOne(Chucvu::class,'id','chucvu_id');
+    }
+
+    public function phongban(){
+        return $this->hasOne(Phongban::class,'id','phongban_id');
+    }
+
     public function checkPermissionAccess($permissionCheck){
         $roles=auth()->user()->roles;
         foreach($roles as $role){

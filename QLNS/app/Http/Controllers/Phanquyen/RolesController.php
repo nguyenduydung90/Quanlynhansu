@@ -95,14 +95,22 @@ class RolesController extends Controller
         $role=$this->roles->find($id);
         
         $permissionParents=$this->permissions->where('parent',0);
+       $id_permission=[];
+
         if(auth()->user()->name=='dev'){
             $permissionParents=$permissionParents->get();
         }else{
             $permissionParents=$permissionParents->where('tenquyen','!=','Permission')->get();
         };
+        foreach ($permissionParents as $key => $value) {
+            foreach($value->permissionChildrent as $item){
+                array_push($id_permission,$item->id);
+            }
+          }
 
         return view('system.phanquyen.roles.edit')
                                                 ->with('role',$role)
+                                                ->with('id_permission',$id_permission)
                                                 ->with('permissionParents',$permissionParents)
                                                 ->with('pageTitle','Roles');
     }

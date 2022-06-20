@@ -21,18 +21,10 @@
             margin-bottom: 5px
         }
 
-        /* td {
-                                                line-height: 80px !important;
-                                               
-                                            }
-                                            .diachi{
-                                                line-height: 18px !important;
-                                            } */
         .info {
             height: 18px;
             line-height: 18px
         }
-
     </style>
 @stop
 
@@ -60,18 +52,17 @@
                         <b>DANH SÁCH CÁN BỘ</b>
                     </div>
                     <div class="actions">
-                        @if($type!='ngungtheodoi')
-                        @can('download_canbo')
-                        <button type="button" class="btn btn-lg btn-default" data-target="#danhsach-modal"
-                            data-toggle="modal">
-                            <i class="fa fa-print"></i> In danh sách
-                        </button>
-                        @endcan
-                        @can('add_canbo')
-                       
-                            <a href="{{ route('canbo.create') }}" type="button" id="_btnaddPB"
-                                class="btn btn-default btn-xs"><i class="fa fa-plus"></i>&nbsp;Thêm mới cán bộ</a>                               
-                        @endcan
+                        @if ($type != 'ngungtheodoi')
+                            @can('download_canbo')
+                                <button type="button" class="btn btn-lg btn-default" data-target="#danhsach-modal"
+                                    data-toggle="modal">
+                                    <i class="fa fa-print"></i> In danh sách
+                                </button>
+                            @endcan
+                            @can('add_canbo')
+                                <a href="{{ route('canbo.create') }}" type="button" id="_btnaddPB"
+                                    class="btn btn-default btn-xs"><i class="fa fa-plus"></i>&nbsp;Thêm mới cán bộ</a>
+                            @endcan
                         @endif
                     </div>
                 </div>
@@ -115,15 +106,17 @@
                                         <td name="diachi" class="diachi">{{ $value->thuongtru }}</td>
                                         <td name="theodoi" class="theodoi">
                                             @can('edit_canbo')
-                                            <select name="theodoi" id='theodoi{{ $value->id }}'
-                                                onchange="theodoi({{ $value->id }})" class="form-control">
-                                                <option value="1" {{ $value->theodoi == 1 ? 'selected' : '' }}>Đang công tác
-                                                </option>
-                                                <option value="0" {{ $value->theodoi == 0 ? 'selected' : '' }}>Ngừng theo dõi
-                                                </option>
-                                            </select>
+                                                <select name="theodoi" id='theodoi{{ $value->id }}'
+                                                    onchange="theodoi({{ $value->id }})" class="form-control">
+                                                    <option value="1" {{ $value->theodoi == 1 ? 'selected' : '' }}>Đang công
+                                                        tác
+                                                    </option>
+                                                    <option value="0" {{ $value->theodoi == 0 ? 'selected' : '' }}>Ngừng theo
+                                                        dõi
+                                                    </option>
+                                                </select>
                                             @else
-                                            {{ $value->theodoi == 1 ? 'Đang công tác' : 'Ngừng theo dõi' }}
+                                                {{ $value->theodoi == 1 ? 'Đang công tác' : 'Ngừng theo dõi' }}
                                             @endcan
                                         </td>
                                         <td class="text-center">
@@ -133,10 +126,10 @@
                                                     <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</a>
                                             @endcan
                                             @can('download_canbo')
-                                            <a href="{{ route('canbo.inchitiet', $value->id) }}"
-                                                class="btn btn-default btn-xs mbs" TARGET="_blank">
-                                                <i class="fa fa-print"></i>&nbsp; In hồ sơ</a>
-                                                @endcan
+                                                <a href="{{ route('canbo.inchitiet', $value->id) }}"
+                                                    class="btn btn-default btn-xs mbs" TARGET="_blank">
+                                                    <i class="fa fa-print"></i>&nbsp; In hồ sơ</a>
+                                            @endcan
                                             @can('delete_canbo')
                                                 <button type="button"
                                                     onclick="cfDel('/danh_muc/canbo/delete/{{ $value->id }}')"
@@ -301,8 +294,8 @@
                         <div class="media">
                             <div class="col-md-12">
                                 <label class="control-label">Khối/Tổ công tác</label>
-                                <select name="dmkhoi_id" class="form-control select2me select2-offscreen" tabindex="-1"
-                                    title="">
+                                <select name="dmkhoi_id" id="khoict" class="form-control select2me select2-offscreen"
+                                    tabindex="-1" title="" >
                                     <option value="">-- Chọn khối/tổ công tác --</option>
                                     @foreach ($khoipb as $item)
                                         <option value="{{ $item->id }}">{{ $item->tenkhoi }}</option>
@@ -311,8 +304,8 @@
                             </div>
                             <div class="col-md-12" style="margin-top: 5px">
                                 <label class="control-label">Phòng ban công tác</label>
-                                <select name="phongban_id" class="form-control select2me select2-offscreen" tabindex="-1"
-                                    title="">
+                                <select name="phongban_id" id="pbct" class="form-control select2me select2-offscreen"
+                                    tabindex="-1" title="">
                                     <option value="">-- Chọn phòng ban công tác --</option>
                                     @foreach ($phongban as $item)
                                         <option value="{{ $item->id }}">{{ $item->tenpb }}</option>
@@ -393,6 +386,24 @@
             });
 
         }
+
+        $("#khoict").on('change', function() {
+            var khoict = $(this).val();
+            if (khoict != '') {
+                $('#pbct').prop('disabled', true);
+            }else{
+                $('#pbct').removeProp('disabled');
+            }
+        })
+
+        $("#pbct").on('change', function() {
+            var khoict = $(this).val();
+            if (khoict != '') {
+                $('#khoict').prop('disabled', true);
+            }else{
+                $('#khoict').removeProp('disabled');
+            }
+        })
     </script>
 
     @include('includes.modal.delete')

@@ -4,6 +4,11 @@
     <link rel="stylesheet" type="text/css"
         href="{{ url('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url('assets/global/plugins/select2/select2.css') }}" />
+    <style>
+        .disabled{
+            
+        }
+    </style>
 @stop
 
 @section('custom-script')
@@ -61,12 +66,12 @@
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th>Xem danh sách</th>
+                                    <th  style="width: 8%">Xem danh sách</th>
                                     <th>Sửa</th>
                                     <th>Thêm</th>
                                     <th>Xóa</th>
-                                    <th>Download</th>
-                                    <th>Xem lịch sử</th>
+                                    <th style="width: 7%">Xem lịch sử</th>
+                                    <th style="width: 7%">Download</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,12 +82,14 @@
                                             <td name="tenquyen">{{ $permissionParent->tenquyen }}</td>
                                             <td name="diengiai">{{ $permissionParent->diengiai }}</td>
                                             @foreach ($permissionParent->permissionChildrent as $permissionParentItem)
+                                            
                                                 <td>
                                                     <input type="checkbox" name="permission_id[]"
-                                                        value="{{ $permissionParentItem->id }}" class="permission_id"
+                                                        value="{{ $permissionParentItem->id }}"  class="permission_id"
                                                         @foreach ($role->permissions as $value) {{ $value->id == $permissionParentItem->id ? 'checked' : '' }} @endforeach>
-                                                    {{-- {{ $permissionParentItem->tenquyen }} --}}
+                                                    {{-- {{ $permissionParentItem->tenquyen }} --}}                                                    
                                                 </td>
+                                            
                                             @endforeach
                                             @if (count($permissionParent->permissionChildrent) < 6)
                                                 @for ($i = 0; $i < 6 - count($permissionParent->permissionChildrent); $i++)
@@ -106,6 +113,5 @@
             </div>
         </div>
     </div>
-
     @include('includes.modal.delete')
 @stop

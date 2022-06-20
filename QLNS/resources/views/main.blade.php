@@ -77,10 +77,7 @@
         .table-bordered{
             border: 1px solid #87cefa !important;
         }
-    /* .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td,
-    .table-bordered>thead>tr>th {
-    border: 1px solid #87cefa; */
-/* } */
+
     </style>
     <script type="text/javascript">
         function time() {
@@ -214,15 +211,15 @@
             <div class="page-sidebar navbar-collapse collapse">
                 <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true"
                     data-slide-speed="200">
-                    {{-- <li class="start">
-                        <a href="">
+                    <li class="start">
+                        <a href="{{route('tongquan')}}">
                             <i class="icon-home"></i>
                             <span class="title">Tổng quan</span>
                         </a>
-                    </li> --}}
+                    </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="fa fa-folder-open-o"></i>
+                            <i class="fa glyphicon glyphicon-folder-open"></i>
                             <span class="title">Quản lý</span>
                             <span class="arrow "></span>
                         </a>
@@ -233,33 +230,6 @@
                             @endcan
                             
                         </ul>
-                    </li>
-                    {{-- <li>
-                        <a href="javascript:;">
-                            <i class="fa fa-sitemap fa-fw"></i>
-                            <span class="title">Chức năng</span>
-                            <span class="arrow "></span>
-                        </a>
-                        <ul class="sub-menu">
-                           @can('list_bangluong')
-                           <li><a href="{{route('bangluong.index')}}"><i class="fa fa-caret-right"></i>Chi trả lương</a></li>
-                           @endcan
-                            
-                            
-                            
-                        </ul>
-                    </li> --}}
-                    <li>
-                        <a href="javascript:;">
-                            <i class="fa fa-search"></i>
-                            <span class="title">Tra cứu</span>
-                            <span class="arrow "></span>
-                        </a>
-                        @can('list_canbo')
-                        <ul class="sub-menu">                           
-                            <li><a href="{{route('canbo.search')}}"><i class="fa fa-caret-right"></i>Tra cứu hồ sơ cán bộ</a></li>
-                        </ul> 
-                        @endcan                       
                     </li>
                     <li>
                         <a href="javascript:;">
@@ -272,10 +242,23 @@
                             <li><a href="{{route('ttpm.index')}}"><i class="fa fa-caret-right"></i>Thông tin các phần mềm</a></li>  
                             @endcan
                             @can('list_file')
-                            <li><a href="{{route('file.index')}}"><i class="fa fa-caret-right"></i>File phần mềm</a></li>  
+                            <li><a href="{{route('file.index')}}"><i class="fa fa-caret-right"></i>File</a></li>  
                             @endcan
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="fa fa-search"></i>
+                            <span class="title">Tra cứu</span>
+                            <span class="arrow "></span>
+                        </a>
+                        @can('list_canbo')
+                        <ul class="sub-menu">                           
+                            <li><a href="{{route('canbo.search')}}"><i class="fa fa-caret-right"></i>Tra cứu hồ sơ cán bộ</a></li>
+                        </ul> 
+                        @endcan                       
+                    </li>
+
                     <li>
                         <a href="javascript:;">
                             <i class="fa fa-gear"></i>
@@ -321,7 +304,7 @@
                             <li>                                
                                 <a href="javascript:;">
                                     <i class="icon-grid"></i>
-                                    <span class="title">Phân quyền</span>
+                                    <span class="title">Quản trị hệ thống</span>
                                     <span class="arrow "></span>
                                 </a>
                                 <ul class="sub-menu">                                  

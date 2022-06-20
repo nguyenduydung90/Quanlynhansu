@@ -46,7 +46,7 @@
                                 <th class="text-center">Thời gian </br>tạo</th>
                                 <th class="text-center">Thời gian </br>cập nhật</th>
                                 <th class="text-center">Tài khoản thực hiện</th>
-                                <th class="text-center">Thao tác</th>
+                                {{-- <th class="text-center">Thao tác</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -62,8 +62,7 @@
                                         <td name="diengiai">{{ \Carbon\Carbon::parse($value->thoigiantao)->format('H:i:s d/m/Y') }}</td>
                                         <td name="diengiai">{{ \Carbon\Carbon::parse($value->thoigianchinhsua)->format('H:i:s d/m/Y') }}</td>
                                         <td name="diengiai">{{ $value->tkthuchien }}</td>
-                                        <td class="text-center">
-                                        </td>
+
                                     </tr>
                                 @endforeach
                             @endif

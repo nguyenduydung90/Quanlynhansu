@@ -6,9 +6,9 @@ use App\Models\Canbo;
 use App\Models\lichsu;
 use Illuminate\Http\Request;
 use App\Models\thongtinphanmem;
+use App\Models\Files;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 
 class ThongtinphanmemController extends Controller
 {
@@ -162,6 +162,16 @@ return redirect()->route('ttpm.index');
         if(File::exists($pm->linkdm)){
             File::Delete($pm->link);
         }
+
+        $file=Files::where('ttpm_id',$pm->id)->first();
+        if (File::exists($file->demo)) {
+            File::Delete($file->demo);
+        };
+        if (File::exists($file->hdsd)) {
+            File::Delete($file->hdsd);
+        };
+
+        $file->delete();
         $pm->delete();
         return redirect()->route('ttpm.index');
     }

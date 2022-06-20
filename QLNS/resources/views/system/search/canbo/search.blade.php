@@ -110,9 +110,9 @@
                                             <div class="col-sm-8">
                                                 <select name="gioitinh" id='gioitinh' class="form-control">
                                                     <option value="">-- Chọn giới tính ---</option>
-                                                    <option value="Nam">Nam
+                                                    <option value="1">Nam
                                                     </option>
-                                                    <option value="Nữ">Nữ
+                                                    <option value="0">Nữ
                                                     </option>
                                                 </select>
                                             </div>
