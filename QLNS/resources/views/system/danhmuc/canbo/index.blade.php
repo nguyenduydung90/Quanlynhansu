@@ -79,7 +79,7 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Điện thoại</th>
                                 <th class="text-center" style="width: 25%">Địa chỉ thường trú</th>
-                                <th class="text-center" style="width: 11%">Phân loại </br>theo dõi</th>
+                                {{-- <th class="text-center" style="width: 11%">Phân loại </br>theo dõi</th> --}}
                                 {{-- <th class="text-center">Chức vụ</th> --}}
                                 <th class="text-center" style="width: 25%">Thao tác</th>
                             </tr>
@@ -104,7 +104,7 @@
                                         <td name="email">{{ $value->email }}</td>
                                         <td name="dienthoai">{{ $value->sdt }}</td>
                                         <td name="diachi" class="diachi">{{ $value->thuongtru }}</td>
-                                        <td name="theodoi" class="theodoi">
+                                        {{-- <td name="theodoi" class="theodoi">
                                             @can('edit_canbo')
                                                 <select name="theodoi" id='theodoi{{ $value->id }}'
                                                     onchange="theodoi({{ $value->id }})" class="form-control">
@@ -118,9 +118,29 @@
                                             @else
                                                 {{ $value->theodoi == 1 ? 'Đang công tác' : 'Ngừng theo dõi' }}
                                             @endcan
-                                        </td>
+                                        </td> --}}
                                         <td class="text-center">
                                             @can('edit_canbo')
+                                            <div class="btn-group btn-group-solid">
+                                                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-expanded="true">
+                                                    <i class="fa fa-cog"></i> Trạng thái <i class="fa fa-angle-down"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu" style="margin-top: 0px;position: static">
+                                                    @if($type == 'ngungtheodoi')
+                                                    <li>
+                                                        <button onclick="theodoi({{ $value->id}}, 1)" style="border: none;padding-top: 0px;padding-bottom: 0px;" class="btn btn-default" >
+                                                            </i>&nbsp; Theo dõi</button>
+                                                    </li>
+                                                    @endif
+                                                    @if($type=='theodoi')
+                                                    <li>
+                                                        <button onclick="theodoi({{ $value->id}},0)" style="border: none;padding-top: 0px;padding-bottom: 0px;" class="btn btn-default" >
+                                                            </i>&nbsp; Ngừng theo dõi</button>
+                                                    </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
                                                 <a type="button" href="{{ route('canbo.edit', $value->id) }}"
                                                     class="btn btn-default btn-xs mbs">
                                                     <i class="fa fa-edit"></i>&nbsp; Chỉnh sửa</a>
@@ -144,133 +164,6 @@
                             @endif
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Modal thông tin cán bộ -->
-    <div id="canbo-modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header modal-header-primary">
-                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                    <h4 id="modal-header-primary-label" class="modal-title"><b class="hoten">Thông tin
-                            cán bộ </b></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="media">
-                        <table id="user" class="table table-bordered table-striped">
-                            <tbody>
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Chức vụ</b>
-                                    </td>
-                                    <td name='chucvu' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Phòng ban</b>
-                                    </td>
-                                    <td name='phongban' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Quê quán</b>
-                                    </td>
-                                    <td name='quequan' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Địa chỉ thường trú</b>
-                                    </td>
-                                    <td name='thuongtru' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Ngày sinh</b>
-                                    </td>
-                                    <td name='ngaysinh' style="width:35%">
-                                        <span class="text-muted">
-
-                                        </span>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>CMND/CCCD</b>
-                                    </td>
-                                    <td name='cccd' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Số điện thoại</b>
-                                    </td>
-                                    <td name='sdt' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Trình độ chuyên môn</b>
-                                    </td>
-                                    <td name='tdcm' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Bằng cấp</b>
-                                    </td>
-                                    <td name='bangcap' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Trường đào tạo</b>
-                                    </td>
-                                    <td name='truongdaotao' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Năm tốt nghiệp</b>
-                                    </td>
-                                    <td name='namtotnghiep' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:15%">
-                                        <b>Ngày vào công ty</b>
-                                    </td>
-                                    <td name='ngayvaoct' style="width:35%">
-                                        <span class="text-muted"></span>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-default">Đóng
-                    </button>
                 </div>
             </div>
         </div>
@@ -358,8 +251,9 @@
             $('#canbo-modal').modal('show')
         }
 
-        function theodoi(id) {
-            var theodoi = $('#theodoi' + id).val();
+        function theodoi(id, trangthai) {
+            var theodoi = trangthai;
+
             $.ajaxSetup({
                 headers: {
 
