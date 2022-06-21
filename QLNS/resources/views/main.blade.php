@@ -217,6 +217,7 @@
                             <span class="title">Tổng quan</span>
                         </a>
                     </li>
+
                     <li>
                         <a href="javascript:;">
                             <i class="fa glyphicon glyphicon-folder-open"></i>
@@ -227,8 +228,7 @@
                             @can('list_canbo')
                             <li><a href="{{route('canbo.index')}}"><i class="fa fa-caret-right"></i>Danh sách cán bộ đang công tác</a></li>
                             <li><a href="{{route('canbo.dscbngungtheodoi')}}"><i class="fa fa-caret-right"></i>Danh sách cán bộ ngừng theo dõi</a></li>
-                            @endcan
-                            
+                            @endcan                           
                         </ul>
                     </li>
                     <li>
@@ -252,11 +252,13 @@
                             <span class="title">Tra cứu</span>
                             <span class="arrow "></span>
                         </a>
-                        @can('list_canbo')
-                        <ul class="sub-menu">                           
+                        
+                        <ul class="sub-menu">
+                            @can('list_canbo')                           
                             <li><a href="{{route('canbo.search')}}"><i class="fa fa-caret-right"></i>Tra cứu hồ sơ cán bộ</a></li>
+                            @endcan
                         </ul> 
-                        @endcan                       
+                                               
                     </li>
 
                     <li>
@@ -272,7 +274,7 @@
                                     <span class="title">Danh mục</span>
                                     <span class="arrow "></span>
                                 </a>
-                                <ul class="sub-menu">
+                                <ul class="sub-menu" style="margin-left: 15px;">
                                     @can('list_chucvu')
                                     <li><a href="{{route('chucvu.index')}}"><i class="fa fa-caret-right"></i>Chức vụ</a></li> 
                                     @endcan
@@ -292,7 +294,7 @@
                                     <span class="title">Người dùng</span>
                                     <span class="arrow "></span>
                                 </a>
-                                <ul class="sub-menu">
+                                <ul class="sub-menu" style="margin-left: 15px;">
                                    @can('edit_taikhoan')
                                    <li><a href="{{route('viewchangPassword')}}"><i class="fa fa-caret-right"></i>Đổi mật khẩu</a></li>   
                                    @endcan
@@ -307,7 +309,7 @@
                                     <span class="title">Quản trị hệ thống</span>
                                     <span class="arrow "></span>
                                 </a>
-                                <ul class="sub-menu">                                  
+                                <ul class="sub-menu" style="margin-left: 15px;">                                  
                                     @can('list_taikhoan')
                                     <li><a href="{{route('user.index')}}"><i class="fa fa-caret-right"></i>Tài khoản</a></li>  
                                     @endcan
@@ -371,7 +373,7 @@
     <div class="page-footer">
         <div class="page-footer-tools">
             <!--  2016 &copy; LifeSoft <a href="" >Tiện ích hơn - Hiệu quả hơn</a>-->
-            Số đăng ký bản quyền: 282/2015/QTG, được khai thác và phần phối bởi H2SOFT
+            {{-- Số đăng ký bản quyền: 282/2015/QTG, được khai thác và phần phối bởi H2SOFT --}}
         </div>
         <div class="scroll-to-top">
             <i class="icon-arrow-up"></i>

@@ -153,7 +153,7 @@
                                                             </label>
 
                                                             <input type="text" name='tdcm' class="form-control" id='tdcm'
-                                                                placeholder="Nhập trình độ chuyên môn" 
+                                                                placeholder="Nhập chuyên môn" 
                                                                 value="{{ old('tdcm') }}">
 
                                                         </div>

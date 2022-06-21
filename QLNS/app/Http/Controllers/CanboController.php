@@ -322,13 +322,13 @@ class CanboController extends Controller
             $model = $model->where('hoten', 'LIKE', '%' . $inputs['hoten'] . '%');
         }
         if ($inputs['diachi'] != '') {
-            $model = $model->where('diachi', 'LIKE', '%' . $inputs['diachi'] . '%');
+            $model = $model->where('thuongtru', 'LIKE', '%' . $inputs['diachi'] . '%');
         }
         if ($inputs['email'] != '') {
             $model = $model->where('email', 'LIKE', '%' . $inputs['email'] . '%');
         }
         if ($inputs['dienthoai'] != '') {
-            $model = $model->where('dienthoai', 'LIKE', '%' . $inputs['dienthoai'] . '%');
+            $model = $model->where('sdt', 'LIKE', '%' . $inputs['dienthoai'] . '%');
         }
         if ($inputs['gioitinh'] != '') {
             $model = $model->where('gioitinh', $inputs['gioitinh']);

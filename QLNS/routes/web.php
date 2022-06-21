@@ -56,12 +56,12 @@ Route::prefix('danh_muc')->group(function(){
         Route::get('/edit/{id}',[CanboController::class,'edit'])->name('canbo.edit')->middleware('can:edit_canbo');
         Route::post('/update/{id}',[CanboController::class,'update'])->name('canbo.update')->middleware('can:edit_canbo');
         Route::get('/delete/{id}',[CanboController::class,'destroy'])->name('canbo.delete')->middleware('can:delete_canbo');
-        Route::get('/search',[CanboController::class,'search'])->name('canbo.search')->middleware('can:list_canbo');;
+        Route::get('/search',[CanboController::class,'search'])->name('canbo.search')->middleware('can:list_canbo');
         Route::get('/result',[CanboController::class,'result'])->name('canbo.result');
-        Route::get('/chitiet',[CanboController::class,'show'])->name('canbo.chitiet');
-        Route::get('/inchitiet/{id}',[CanboController::class,'inthongtincanbo'])->name('canbo.inchitiet');
-        Route::post('/indanhsach',[CanboController::class,'indanhsach'])->name('canbo.indanhsach');
-        Route::get('/theodoi',[CanboController::class,'updatetrangthai'])->name('canbo.theodoi');
+        // Route::get('/chitiet',[CanboController::class,'show'])->name('canbo.chitiet');
+        Route::get('/inchitiet/{id}',[CanboController::class,'inthongtincanbo'])->name('canbo.inchitiet')->middleware('can:download_canbo');
+        Route::post('/indanhsach',[CanboController::class,'indanhsach'])->name('canbo.indanhsach')->middleware('can:download_canbo');
+        Route::get('/theodoi',[CanboController::class,'updatetrangthai'])->name('canbo.theodoi')->middleware('can:edit_canbo');
     });
 });
 

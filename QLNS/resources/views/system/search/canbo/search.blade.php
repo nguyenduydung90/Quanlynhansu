@@ -134,7 +134,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label">Địa chỉ </label>
+                                            <label class="col-sm-4 control-label">Địa chỉ thường trú </label>
 
                                             <div class="col-sm-8">
                                                 <input type="text" name='diachi' class="form-control" id='diachi'>

@@ -104,21 +104,6 @@
                                         <td name="email">{{ $value->email }}</td>
                                         <td name="dienthoai">{{ $value->sdt }}</td>
                                         <td name="diachi" class="diachi">{{ $value->thuongtru }}</td>
-                                        {{-- <td name="theodoi" class="theodoi">
-                                            @can('edit_canbo')
-                                                <select name="theodoi" id='theodoi{{ $value->id }}'
-                                                    onchange="theodoi({{ $value->id }})" class="form-control">
-                                                    <option value="1" {{ $value->theodoi == 1 ? 'selected' : '' }}>Đang công
-                                                        tác
-                                                    </option>
-                                                    <option value="0" {{ $value->theodoi == 0 ? 'selected' : '' }}>Ngừng theo
-                                                        dõi
-                                                    </option>
-                                                </select>
-                                            @else
-                                                {{ $value->theodoi == 1 ? 'Đang công tác' : 'Ngừng theo dõi' }}
-                                            @endcan
-                                        </td> --}}
                                         <td class="text-center">
                                             @can('edit_canbo')
                                             <div class="btn-group btn-group-solid">
@@ -218,39 +203,6 @@
         </div>
     </div>
     <script>
-        function chitiet(id) {
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $.ajax({
-                url: "{{ route('canbo.chitiet') }}",
-                type: 'GET',
-                data: {
-                    _token: CSRF_TOKEN,
-                    id: id
-                },
-                dataType: 'JSON',
-                success: function(data) {
-                    console.log(data.chucvu.tencv);
-                    $('#user').find('td[name=quequan]').text(data.quequan);
-                    $('#user').find('td[name=thuongtru]').text(data.thuongtru);
-                    $('#user').find('td[name=ngaysinh]').text(data.ngaysinh);
-                    $('#user').find('td[name=cccd]').text(data.cccd);
-                    $('#user').find('td[name=sdt]').text(data.sdt);
-                    $('#user').find('td[name=tdcm]').text(data.tdcm);
-                    $('#user').find('td[name=bangcap]').text(data.bangcap);
-                    $('#user').find('td[name=truongdaotao]').text(data.truongdaotao);
-                    $('#user').find('td[name=namtotnghiep]').text(data.namtotnghiep);
-                    $('#user').find('td[name=chucvu]').text(data.chucvu.tencv);
-                    $('#user').find('td[name=phongban]').text(data.phongban.tenpb);
-                    $('#user').find('td[name=ngayvaoct]').text(data.ngayvaoct);
-                    $('#modal-header-primary-label').find('.hoten').text('Thông tin cán bộ: ' + data.hoten);
-                },
-                error: function(message) {
-                    alert(message);
-                }
-            });
-            $('#canbo-modal').modal('show')
-        }
-
         function theodoi(id, trangthai) {
             var theodoi = trangthai;
 
