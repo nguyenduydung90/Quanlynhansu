@@ -54,6 +54,8 @@
                                         <td name="tenquyen">{{ $value->tenquyen }}</td>
                                         <td name="diengiai">{{ $value->diengiai }}</td>
                                         <td>
+                                            <button type="button"  class="btn btn-default btn-xs mbs" data-target="#permission-modal{{ $value->id }}"
+                                            data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</button>
                                             <button type="button"
                                                 onclick="cfDel('/phanquyen/permissions/delete/{{ $value->id }}')"
                                                 class="btn btn-default btn-xs mbs" data-target="#delete-modal-confirm"
@@ -61,7 +63,7 @@
                                                 <i class="fa fa-trash-o"></i>&nbsp; Xóa</button>
                                         </td>
                                     </tr>
-                                    {{-- <div id="permission-modal{{ $value->id }}" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+                                    <div id="permission-modal{{ $value->id }}" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
                                         <form action="{{route('permission.update',$value->id)}}" method="post" enctype="multipart/form-data">
                                             @csrf
                                         <div class="modal-dialog">
@@ -75,7 +77,7 @@
                                                     <input type="text" name='tenquyen' id="tenquyen{{$value->id}}" value="{{ $value->tenquyen }}" class="form-control" required>
                                 
                                                     <label class="form-control-label">Mô tả<span class="require">*</span></label>
-                                                    <input type="text" name='diengiai' id="diengiai{{$value->id}}" value="{{ $value->diengiai }}" class="form-control" required> --}}
+                                                    <input type="text" name='diengiai' id="diengiai{{$value->id}}" value="{{ $value->diengiai }}" class="form-control" required>
                                 
                                                     {{-- <label class="form-control-label">Quyền chi tiết<span class="require">*</span></label>
                                                     <select name="permission_childrent[]" id="Modulchildrent{{$value->id}}" class="form-control modulchildren" multiple>
@@ -85,7 +87,7 @@
                                                         <option value="delete"{{$value->permissionChildrent->contains('tenquyen','delete')?'selected':''}}>Xóa quyền</option>   
                                                   </select> --}}
                                                     {{-- <input type="hidden" id="id_quyen" class="id_quyen" name="id_quyen" value="{{$value->id}}" /> --}}
-                                                {{-- </div>
+                                                </div>
                                                 <div class="modal-footer">
                                                     <button type="button" data-dismiss="modal" class="btn btn-default">Hủy thao tác</button>
                                                     <button type="submit" id="submit" name="submit" value="submit" class="btn btn-primary"
@@ -94,7 +96,7 @@
                                             </div>
                                         </div>
                                     </form>
-                                    </div> --}}
+                                    </div>
                                 @endforeach
                             @endif
                         </tbody>
@@ -119,11 +121,11 @@
                     <label class="form-control-label">Mô tả<span class="require">*</span></label>
                     <input type="text" name='diengiai' id="diengiai_add" class="form-control" required>
 
-                    <label class="form-control-label">Quyền chi tiết khác</label>
+                    {{-- <label class="form-control-label">Quyền chi tiết khác</label>
                     <select name="permission_childrent[]" id="Modulchildrent_add" class="form-control Modulchildrent select2me" placeholder='-- Chọn thêm quyền chi tiết ---' multiple>
                         <option value="lichsu">Xem lịch sử</option>
                         <option value="download">Download</option>
-                    </select>
+                    </select> --}}
                     <input type="hidden" id="id_quyen_add" name="id_quyen" />
                 </div>
                 <div class="modal-footer">
@@ -145,13 +147,13 @@
             $('#khoipb-modal').modal('show');
         }
 
-        // function editkhoiPb(e, id) {
-        //     var tr = $(e).closest('tr');
-        //     $('#tenquyen').val($(tr).find('td[name=tenquyen]').text());
-        //     $('#diengiai').val($(tr).find('td[name=diengiai]').text());
-        //     $('#id_quyen').val(id);
-        //     $('#khoipb-modal').modal('show');
-        // }
+        function editkhoiPb(e, id) {
+            var tr = $(e).closest('tr');
+            $('#tenquyen').val($(tr).find('td[name=tenquyen]').text());
+            $('#diengiai').val($(tr).find('td[name=diengiai]').text());
+            $('#id_quyen').val(id);
+            $('#khoipb-modal').modal('show');
+        }
 
         function cfCV() {
             var valid = true;

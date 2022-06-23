@@ -87,7 +87,7 @@
                                                     <input type="checkbox" name="permission_id[]"
                                                         value="{{ $permissionParentItem->id }}"  class="permission_id"
                                                         @foreach ($role->permissions as $value) {{ $value->id == $permissionParentItem->id ? 'checked' : '' }} @endforeach>
-                                                    {{-- {{ $permissionParentItem->tenquyen }} --}}                                                    
+                                                    {{-- {{ $permissionParentItem->tenquyen }}                                                     --}}
                                                 </td>
                                             
                                             @endforeach

@@ -77,7 +77,7 @@ Route::prefix('phanquyen')->group(function(){
     Route::prefix('permissions')->group(function(){
         Route::get('/',[PermissionController::class,'index'])->name('permission.index')->middleware('can:list_permission');
         Route::post('/store',[PermissionController::class,'store'])->name('permission.store')->middleware('can:add_permission');
-        // Route::post('/update/{id}',[PermissionController::class,'update'])->name('permission.update');
+        Route::post('/update/{id}',[PermissionController::class,'update'])->name('permission.update');
         Route::get('/delete/{id}',[PermissionController::class,'destroy'])->name('permission.delete')->middleware('can:delete_permission');
     });
     Route::prefix('taikhoan')->group(function(){
